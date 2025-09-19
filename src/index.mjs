@@ -2,19 +2,7 @@ import express from 'express';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-
-app.get('/', (request, response) => {
-    response.set('Cache-Control', 'no-store');
- response.status(201).send({msg : "Hello I am from object"});
-});
-
-app.get('/api/users', (request, response) => {
-   response.send([
+const mockUsers = [
     {
     id : 1,
     username : "Nimesh",
@@ -30,7 +18,20 @@ app.get('/api/users', (request, response) => {
     username : "Karunasinghe",
     displayName : "Karunasinghe KNK"
     },
-]);
+]
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+app.get('/', (request, response) => {
+    response.set('Cache-Control', 'no-store');
+ response.status(201).send({msg : "Hello I am from object"});
+});
+
+app.get('/api/users', (request, response) => {
+   response.send(mockUsers);
 });
 
 app.get('/api/products', (request, response) => {
@@ -53,5 +54,19 @@ app.get('/api/products', (request, response) => {
     ])
 });
 
+app.get('/api/users/:userId', (request, response) => {
+    console.log(request.params);
+    const userID = parseInt(request.params.userId);
+    console.log(userID);
+    if(isNaN(userID)){
+        return response.status(400).send({msg : "bad request. Invalid ID"});
+    };
+
+    const findUser = mockUsers.find((user) => user.id === userID);
+    if(!findUser){
+        return response.sendStatus(404);
+    }
+    response.send(findUser);
+});
 // localhost:3000
 
