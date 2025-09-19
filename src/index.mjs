@@ -18,6 +18,21 @@ const mockUsers = [
     username : "Karunasinghe",
     displayName : "Karunasinghe KNK"
     },
+    {
+    id : 4,
+    username : "Alice",
+    displayName : "Alice Wonderland"
+    },
+    {
+    id : 5,
+    username : "Jhon",
+    displayName : "Jhon Doe"
+    },
+    {
+    id : 6,
+    username : "Harry",
+    displayName : "Harry Potter"
+    },
 ]
 
 app.listen(PORT, () => {
@@ -31,7 +46,18 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/users', (request, response) => {
-   response.send(mockUsers);
+    console.log(request.query);
+    const {
+        query : {filter, value}
+    }  = request;
+
+    if(!filter && !value) return response.send(mockUsers);
+
+    if(filter && value) return response.send(
+        mockUsers.filter((user) => user[filter].includes(value))
+    );
+     
+
 });
 
 app.get('/api/products', (request, response) => {
@@ -68,5 +94,10 @@ app.get('/api/users/:userId', (request, response) => {
     }
     response.send(findUser);
 });
+
+
+
+
+
 // localhost:3000
 
