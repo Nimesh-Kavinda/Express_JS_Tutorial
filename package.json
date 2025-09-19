@@ -1,0 +1,29 @@
+{
+  "name": "express_js_tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon ./src/index.mjs",
+    "start" : "node ./src/index.mjs"  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nimesh-Kavinda/Express_JS_Tutorial.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Nimesh-Kavinda/Express_JS_Tutorial/issues"
+  },
+  "homepage": "https://github.com/Nimesh-Kavinda/Express_JS_Tutorial#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
