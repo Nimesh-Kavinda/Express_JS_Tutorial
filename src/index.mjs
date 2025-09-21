@@ -108,6 +108,27 @@ app.get('/api/users/:userId', (request, response) => {
     response.send(findUser);
 });
 
+// PUT request
+
+app.put('/api/users/:userId', (request, response) => {
+    const {
+        body,
+        params : {userId},
+    } = request;
+
+    const parseId = parseInt(userId);
+    if(isNaN(parseId)) return response.sendStatus(400);
+
+    const findUserIndex = mockUsers.findIndex((user) => user.id === parseId );
+
+    if(findUserIndex === -1) return response.sendStatus(404);
+
+    mockUsers[findUserIndex] = {id : parseId, ...body};
+    return response.sendStatus(200);
+
+
+});
+
 
 
 
