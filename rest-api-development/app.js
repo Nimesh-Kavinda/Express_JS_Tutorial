@@ -45,8 +45,8 @@ app.get('/get/:id', (req, res) => {
 
 app.post('/add', (req, res) => {
   const newbook = {
-    id: books.length + 1,
-    title: `Book ${books.length + 1}`,
+    id: Math.floor(Math.random() * 1000),
+    title: `Book ${Math.floor(Math.random() * 1000)}`,
   };
   books.push(newbook);
   res.status(200).json({
@@ -75,6 +75,22 @@ app.put('/update/:id', (req, res) => {
   }
 });
 
+app.delete('/delete/:id', (req, res) => {
+  const findIndexOfCurrentbook = books.findIndex(
+    (item) => item.id === parseInt(req.params.id)
+  );
+  if (findIndexOfCurrentbook !== -1) {
+    const deleteBook = books.splice(findIndexOfCurrentbook, 1);
+    res.status(200).json({
+      message: `Book with ID ${req.params.id} deleted successfully`,
+      data: deleteBook[0],
+    });
+  } else {
+    res.status(404).json({
+      message: 'Book not found please try with a different Book ID',
+    });
+  }
+});
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
