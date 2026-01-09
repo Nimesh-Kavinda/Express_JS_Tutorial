@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose
   .connect(
-    'mongodb+srv://nimeshkavindakarunasinghe:nimeshkavindakarunasinghe2026@cluster0.2sainqy.mongodb.net/'
+    `mongodb+srv://nimeshkavindakarunasinghe:${process.env.cluter_password}@cluster0.2sainqy.mongodb.net/`
   )
   .then(() => {
     console.log('Connected to MongoDB');
